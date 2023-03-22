@@ -1,36 +1,39 @@
 <h1>Angular Nested FormArray / Dynamic FormArray</h1>
 
 <form [formGroup]="syllabusForm" (ngSubmit)="onSubmit()">
-  <div formArrayName="employees">
-    <div *ngFor="let employee of employees().controls; let empIndex=index">
+  <div formArrayName="modules">
+    <div *ngFor="let employee of modules().controls; let moduleIndex = index">
       <div
-        [formGroupName]="empIndex"
+        [formGroupName]="moduleIndex"
         style="border: 1px solid blue; padding: 10px; width: 600px; margin: 5px;"
       >
-        {{empIndex}} First Name :
+        {{ moduleIndex }} First Name :
         <input type="text" formControlName="firstName" />
         Last Name:
         <input type="text" formControlName="lastName" />
 
-        <button (click)="removeEmployee(empIndex)">Remove</button>
+        <button (click)="removeEmployee(moduleIndex)">Remove</button>
 
         <div formArrayName="skills">
           <div
-            *ngFor="let skill of employeeSkills(empIndex).controls; let skillIndex=index"
+            *ngFor="
+              let skill of employeeSkills(moduleIndex).controls;
+              let skillIndex = index
+            "
           >
             <div [formGroupName]="skillIndex">
-              {{skillIndex}} Skill :
+              {{ skillIndex }} Skill :
               <input type="text" formControlName="skill" />
               Exp:
               <input type="text" formControlName="exp" />
 
-              <button (click)="removeEmployeeSkill(empIndex,skillIndex)">
+              <button (click)="removeEmployeeSkill(moduleIndex, skillIndex)">
                 Remove
               </button>
             </div>
           </div>
         </div>
-        <button type="button" (click)="addEmployeeSkill(empIndex)">
+        <button type="button" (click)="addEmployeeSkill(moduleIndex)">
           Add Skill
         </button>
       </div>
@@ -39,7 +42,7 @@
   </div>
 </form>
 
-{{this.syllabusForm.value | json}}
+{{ this.syllabusForm.value | json }}
 
 <br /><br />
 <a
